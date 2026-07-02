@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TabunganQ - Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="assets/css/style.css" rel="stylesheet" />
+</head>
+<body class="app-layout bg-light">
+  <div class="app-shell d-flex">
+    <aside class="sidebar bg-white shadow-sm">
+      <div class="sidebar-brand px-4 py-3 border-bottom">
+        <h4 class="mb-0 text-primary"><i class="bi bi-wallet2 me-2"></i>TabunganQ</h4>
+      </div>
+      <nav class="nav flex-column p-3">
+        <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+        <a class="nav-link" href="nasabah.html"><i class="bi bi-people me-2"></i>Nasabah</a>
+        <a class="nav-link" href="transaksi.html"><i class="bi bi-arrow-up-right-circle me-2"></i>Transaksi</a>
+        <a class="nav-link" href="laporan.html"><i class="bi bi-file-earmark-text me-2"></i>Laporan</a>
+        <a class="nav-link active" href="profile.html"><i class="bi bi-person-circle me-2"></i>Profile</a>
+        <button id="logoutBtn" class="btn btn-outline-danger btn-sm mt-3 w-100"><i class="bi bi-box-arrow-right me-1"></i>Keluar</button>
+      </nav>
+    </aside>
+    <div class="app-content flex-grow-1">
+      <header class="topbar d-flex justify-content-between align-items-center px-4 py-3 border-bottom bg-white shadow-sm">
+        <div>
+          <h5 class="mb-1">Profile</h5>
+          <small class="text-muted">Informasi pengguna dan kontrol tema.</small>
+        </div>
+      </header>
+      <main class="p-4">
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <h5 class="mb-3">Akun Anda</h5>
+            <div class="row gy-3">
+              <div class="col-12 col-md-6">
+                <div class="p-4 bg-white rounded-4 shadow-sm">
+                  <h6 class="mb-3">Profil Pengguna</h6>
+                  <p><strong>Nama:</strong> <span id="profileName">-</span></p>
+                  <p><strong>Username:</strong> <span id="profileUsername">-</span></p>
+                  <p><strong>ID Pengguna:</strong> <span id="profileId">-</span></p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="p-4 bg-white rounded-4 shadow-sm">
+                  <h6 class="mb-3">Keterangan</h6>
+                  <p class="text-muted">Pada halaman profile ini, Anda bisa melihat detail akun yang sedang login. Logout jika ingin keluar dari aplikasi.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      AppHelper.initPage();
+      if (!AppHelper.requireAuth()) return;
+      const session = StorageHelper.getSession();
+      if (session) {
+        document.getElementById('profileName').textContent = session.name || '-';
+        document.getElementById('profileUsername').textContent = session.username || '-';
+        document.getElementById('profileId').textContent = session.id || '-';
+      }
+    });
+  </script>
+</body>
+</html>
