@@ -40,15 +40,23 @@ document.addEventListener('DOMContentLoaded', () => {
     filtered.slice().reverse().forEach((item, index) => {
       const nasabahItem = nasabah.find((n) => n.id === item.nasabahId);
       const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${nasabahItem ? nasabahItem.name : 'Tidak ditemukan'}</td>
-        <td>${item.type}</td>
-        <td>${AppHelper.formatRupiah(item.amount)}</td>
-        <td>${AppHelper.formatRupiah(item.balanceAfter)}</td>
-        <td>${item.description}</td>
-        <td>${AppHelper.formatDate(item.date)}</td>
-      `;
+
+      const tdNo = document.createElement('td'); tdNo.textContent = index + 1;
+      const tdName = document.createElement('td'); tdName.textContent = nasabahItem ? nasabahItem.name : 'Tidak ditemukan';
+      const tdType = document.createElement('td'); tdType.textContent = item.type;
+      const tdAmount = document.createElement('td'); tdAmount.textContent = AppHelper.formatRupiah(item.amount);
+      const tdBalance = document.createElement('td'); tdBalance.textContent = AppHelper.formatRupiah(item.balanceAfter);
+      const tdDesc = document.createElement('td'); tdDesc.textContent = item.description;
+      const tdDate = document.createElement('td'); tdDate.textContent = AppHelper.formatDate(item.date);
+
+      tr.appendChild(tdNo);
+      tr.appendChild(tdName);
+      tr.appendChild(tdType);
+      tr.appendChild(tdAmount);
+      tr.appendChild(tdBalance);
+      tr.appendChild(tdDesc);
+      tr.appendChild(tdDate);
+
       reportTableBody.appendChild(tr);
     });
     if ($.fn.DataTable.isDataTable('#reportTable')) {

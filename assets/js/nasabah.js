@@ -9,20 +9,55 @@ document.addEventListener('DOMContentLoaded', () => {
   const renderNasabah = () => {
     const nasabah = StorageHelper.getNasabah();
     nasabahTableBody.innerHTML = '';
-    nasabah.forEach((item, index) => {
+    nasabah.forEach((item) => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${item.id}</td>
-        <td>${item.name}</td>
-        <td>${item.gender}</td>
-        <td>${item.phone}</td>
-        <td>${AppHelper.formatRupiah(item.saldo)}</td>
-        <td>${AppHelper.formatDate(item.date)}</td>
-        <td>
-          <button class="btn btn-sm btn-outline-primary btn-edit" data-id="${item.id}"><i class="bi bi-pencil"></i></button>
-          <button class="btn btn-sm btn-outline-danger btn-delete" data-id="${item.id}"><i class="bi bi-trash"></i></button>
-        </td>
-      `;
+
+      const tdId = document.createElement('td');
+      tdId.textContent = item.id;
+
+      const tdName = document.createElement('td');
+      tdName.textContent = item.name;
+
+      const tdGender = document.createElement('td');
+      tdGender.textContent = item.gender;
+
+      const tdPhone = document.createElement('td');
+      tdPhone.textContent = item.phone;
+
+      const tdSaldo = document.createElement('td');
+      tdSaldo.textContent = AppHelper.formatRupiah(item.saldo);
+
+      const tdDate = document.createElement('td');
+      tdDate.textContent = AppHelper.formatDate(item.date);
+
+      const tdActions = document.createElement('td');
+
+      const btnEdit = document.createElement('button');
+      btnEdit.className = 'btn btn-sm btn-outline-primary btn-edit';
+      btnEdit.dataset.id = item.id;
+      const iconEdit = document.createElement('i');
+      iconEdit.className = 'bi bi-pencil';
+      btnEdit.appendChild(iconEdit);
+
+      const btnDelete = document.createElement('button');
+      btnDelete.className = 'btn btn-sm btn-outline-danger btn-delete';
+      btnDelete.dataset.id = item.id;
+      const iconDel = document.createElement('i');
+      iconDel.className = 'bi bi-trash';
+      btnDelete.appendChild(iconDel);
+
+      tdActions.appendChild(btnEdit);
+      tdActions.appendChild(document.createTextNode(' '));
+      tdActions.appendChild(btnDelete);
+
+      tr.appendChild(tdId);
+      tr.appendChild(tdName);
+      tr.appendChild(tdGender);
+      tr.appendChild(tdPhone);
+      tr.appendChild(tdSaldo);
+      tr.appendChild(tdDate);
+      tr.appendChild(tdActions);
+
       nasabahTableBody.appendChild(tr);
     });
     if ($.fn.DataTable.isDataTable('#nasabahTable')) {
