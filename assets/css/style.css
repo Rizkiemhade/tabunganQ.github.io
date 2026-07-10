@@ -50,6 +50,15 @@ img {
   background: linear-gradient(135deg, rgba(13, 110, 253, .12), rgba(13, 110, 253, 0));
 }
 
+/* Make the brand area a horizontal container so back button can sit to the right */
+.sidebar .sidebar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
 .nav-link {
   color: #52607a;
   font-weight: 500;
@@ -127,7 +136,75 @@ input, select, textarea {
     flex-direction: column;
   }
   .sidebar {
-    width: 100%;
+    width: 260px;
     min-height: auto;
   }
 }
+
+/* Sidebar toggle button - show on small screens */
+.sidebar-toggle {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .sidebar-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Mobile toggle button */
+.mobile-toggle {
+  display: none;
+}
+@media (max-width: 991px) {
+  .mobile-toggle { display: inline-flex; }
+}
+
+/* Overlay when sidebar open on mobile */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease, visibility .2s ease;
+  z-index: 1040;
+}
+.sidebar-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* When mobile-mode is enabled, allow opening sidebar via .open */
+body.mobile-mode .sidebar {
+  transform: translateX(-100%);
+  display: none;
+}
+body.mobile-mode .sidebar.open {
+  transform: translateX(0);
+  display: block;
+  position: fixed;
+  z-index: 1050;
+  width: 260px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+/* Sidebar back button */
+.sidebar-back-btn {
+  display: none;
+  margin: 0 12px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 991px) {
+  .sidebar-back-btn { display: inline-flex; }
+}
+
+/* ensure back button is visible when sidebar is open in mobile-mode */
+body.mobile-mode .sidebar.open .sidebar-back-btn { display: inline-flex; }
+
